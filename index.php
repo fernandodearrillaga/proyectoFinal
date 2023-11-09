@@ -9,24 +9,46 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
+    <header>
+        <?php require_once('header.html');?>
+    </header>
     <body>
         <?php
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";
-        $sql=$conexion->query("SELECT DISTINCT `lugar_salida` FROM `rutas`");
+        $sql=$conexion->query("SELECT DISTINCT `parada` FROM `paradas`");
         //var_dump($sql);
         //SELECT DISTINCT `lugar_salida` FROM `rutas`;
         $lugares=[];
         foreach ($sql as $value) {
-            echo $value["lugar_salida"];
-            array_push($lugares, $value["lugar_salida"]);
+            echo $value["parada"];
+            array_push($lugares, $value["parada"]);
             //var_dump($value);
             
         }
         var_dump($lugares);
         ?>
+        <br>
+
+        <form action="resultado.php" method="post">
+            Name: <input type="text" name="name"><br>
+            E-mail: <input type="text" name="email"><br>
+            <input type="submit">
+        </form>
+        
         <label>Origen</label>
         <select name="origen" id="origen">
+            <?php
+            foreach ($lugares as $value){
+                echo "<option value='$value'> $value </option>";
+            }
+            
+            ?>
+
+        </select>
+
+        <label>Destino</label>
+        <select name="destino" id="destino">
             <?php
             foreach ($lugares as $value){
                 echo "<option value='$value'> $value </option>";
@@ -38,4 +60,8 @@ and open the template in the editor.
         
         <input type="submit" value="Submit">
     </body>
+
+    <footer>
+    <?php require_once('footer.html');?>
+    </footer>
 </html>
