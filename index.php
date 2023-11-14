@@ -31,11 +31,6 @@ and open the template in the editor.
         <br>
 
         <form action="resultado.php" method="post">
-            Name: <input type="text" name="name"><br>
-            E-mail: <input type="text" name="email"><br>
-            <input type="submit">
-        </form>
-        
         <label>Origen</label>
         <select name="origen" id="origen">
             <?php
@@ -59,6 +54,9 @@ and open the template in the editor.
         </select>
         
         <input type="submit" value="Submit">
+        </form>
+        
+        
     </body>
 
     <footer>
