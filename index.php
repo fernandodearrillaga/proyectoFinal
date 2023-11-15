@@ -21,12 +21,12 @@ and open the template in the editor.
         //SELECT DISTINCT `lugar_salida` FROM `rutas`;
         $lugares=[];
         foreach ($sql as $value) {
-            echo $value["parada"];
+          //  echo $value["parada"];
             array_push($lugares, $value["parada"]);
             //var_dump($value);
             
         }
-        var_dump($lugares);
+       // var_dump($lugares);
         ?>
         <br>
 
@@ -60,6 +60,6 @@ and open the template in the editor.
     </body>
 
     <footer>
-    <?php require_once('footer.html');?>
+        <?php require_once('footer.html');?>
     </footer>
 </html>
