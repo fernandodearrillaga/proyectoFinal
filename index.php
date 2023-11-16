@@ -30,7 +30,7 @@ and open the template in the editor.
         ?>
         <br>
 
-        <form action="resultado.php" method="post">
+        <form class="formulario" action="resultado.php" method="post">
         <label>Origen</label>
         <select name="origen" id="origen">
             <?php
