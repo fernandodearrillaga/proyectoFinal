@@ -8,15 +8,20 @@
 //SELECT * FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='ZARAGOZA') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='BARCELONA') AND (`parada`='ZARAGOZA' OR `parada`='BARCELONA' );
 //SELECT *, MIN(hora), MAX(hora) FROM `paradas` WHERE (`id_ruta`=1 OR `id_ruta`=2) AND (`parada`='ZARAGOZA' or `parada`='BARCELONA') group BY(`id_ruta`)
 //SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='ZARAGOZA') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='BARCELONA') AND (`parada`='ZARAGOZA' OR `parada`='BARCELONA' ) GROUP BY(`id_ruta`)
+//SELECT * FROM `paradas` WHERE `hora`>(SELECT `hora` FROM `paradas` WHERE `id`=13)
+//SELECT P1.*, P2.* FROM `paradas`  P1, `paradas`  P2  WHERE P1.id_ruta=P2.id_ruta AND p1.hora<p2.hora AND p1.parada='ZARAGOZA' and p2.parada='MADRID';
+//SELECT ORIGEN.*, DESTINO.* FROM `paradas`  ORIGEN, `paradas`  DESTINO  WHERE ORIGEN.id_ruta=DESTINO.id_ruta AND ORIGEN.hora<DESTINO.hora AND ORIGEN.parada='ZARAGOZA' AND DESTINO.parada='MADRID';
+//SELECT ORIGEN.`parada` as origen, ORIGEN.hora as salida,  DESTINO.`parada` as destino, DESTINO.hora as llegada FROM `paradas`  ORIGEN, `paradas`  DESTINO  WHERE ORIGEN.id_ruta=DESTINO.id_ruta AND ORIGEN.hora<DESTINO.hora AND ORIGEN.parada='ZARAGOZA' AND DESTINO.parada='MADRID';
 $origen= $_POST["origen"];
 $destino = $_POST["destino"];
 //$query = "SELECT * FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`id_ruta` IN (SELECT `id` FROM `rutas` WHERE `lugar_salida`='$origen')) AND (`parada`= '$origen' OR `parada`= '$destino') ORDER BY `hora`;";
-$query2 ="SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`parada`='$origen' OR `parada`='$destino' ) GROUP BY(`id_ruta`);";
+//$query2 ="SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`parada`='$origen' OR `parada`='$destino' ) GROUP BY(`id_ruta`);";
+$query3 = "SELECT ORIGEN.`parada` as origen, ORIGEN.hora as salida,  DESTINO.`parada` as destino, DESTINO.hora as llegada FROM `paradas`  ORIGEN, `paradas`  DESTINO  WHERE ORIGEN.id_ruta=DESTINO.id_ruta AND ORIGEN.hora<DESTINO.hora AND ORIGEN.parada='$origen' AND DESTINO.parada='$destino';";
 echo "<br><br><br>";
-echo $query2;
+echo $query3;
 echo "<br><br><br>";
 $conexion=mysqli_connect("localhost", "root", "", "transporte");
-$sql=$conexion->query($query2);
+$sql=$conexion->query($query3);
 var_dump($sql);
 echo "<br>";
 ?>
@@ -41,14 +46,15 @@ echo "<br>";
 <table class="table">
 <?php
 $row = mysqli_fetch_array($sql);
-//var_dump($row);
+var_dump($row);
 echo "<tr>";
-echo  "<td>".$origen."</td>";
-echo  "<td>".$row["MIN(`hora`)"]."</td>";
+
+echo  "<td>".$row["origen"]."</td>";
+echo  "<td>".$row["salida"]."</td>";
 echo "</tr>";
 echo "<tr>";
-echo  "<td>".$destino."</td>";
-echo  "<td>".$row["MAX(`hora`)"]."</td>";
+echo  "<td>".$row["destino"]."</td>";
+echo  "<td>".$row["llegada"]."</td>";
 echo "</tr>";
 
 
