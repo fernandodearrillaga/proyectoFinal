@@ -43,10 +43,51 @@ echo "<br>";
     <td>B2</td>
   </tr>
 </table>
+<?php
+
+$rows = array();
+while ($row = mysqli_fetch_assoc($sql)) {
+  array_push($rows, $row);
+    //print_r($rows, $row);
+}
+var_dump($rows);
+
+
+//$row = mysqli_fetch_array($sql);
+//var_dump($row);
+?>
+<div class="row">
+  <div class="col-sm-8">
+    
+      
+        <?php
+        for ($i=0; $i < count($rows); $i++) { 
+          echo "<div class='card'>";
+          echo "<div class='card-body'>";
+          echo "<table class='table'>";
+          echo "<tr>";
+          echo "<td>".$rows[$i]["origen"]."</td>";
+          echo "<td>".$rows[$i]["salida"]."</td>";
+          echo "<tr>";
+          echo "<tr>";
+          echo "<td>".$rows[$i]["destino"]."</td>";
+          echo "<td>".$rows[$i]["llegada"]."</td>";
+          echo "<tr>";
+          echo "</table>";
+          echo "</div>";
+          echo "</div>";
+          echo "<br>";
+        }
+
+        ?>
+      
+
+  </div>
+</div>
 <table class="table">
 <?php
-$row = mysqli_fetch_array($sql);
-var_dump($row);
+
+
 echo "<tr>";
 
 echo  "<td>".$row["origen"]."</td>";
