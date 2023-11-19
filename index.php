@@ -52,7 +52,7 @@ and open the template in the editor.
             ?>
 
         </select>
-        
+        <input type="date" name="fecha" id="fecha">
         <input type="submit" value="Submit">
         </form>
         
