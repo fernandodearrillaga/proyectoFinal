@@ -4,7 +4,7 @@
 
 <?php
 //echo "resultado";
-//var_dump($_POST);
+var_dump($_POST);
 //SELECT * FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='ZARAGOZA') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='BARCELONA') AND (`parada`='ZARAGOZA' OR `parada`='BARCELONA' );
 //SELECT *, MIN(hora), MAX(hora) FROM `paradas` WHERE (`id_ruta`=1 OR `id_ruta`=2) AND (`parada`='ZARAGOZA' or `parada`='BARCELONA') group BY(`id_ruta`)
 //SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='ZARAGOZA') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='BARCELONA') AND (`parada`='ZARAGOZA' OR `parada`='BARCELONA' ) GROUP BY(`id_ruta`)
@@ -15,10 +15,12 @@
 $origen= $_POST["origen"];
 $destino = $_POST["destino"];
 $fecha= $_POST["fecha"];
+$autobus= $_POST["autobus"];
+$tren= $_POST["tren"];
 echo $fecha;
 //$query = "SELECT * FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`id_ruta` IN (SELECT `id` FROM `rutas` WHERE `lugar_salida`='$origen')) AND (`parada`= '$origen' OR `parada`= '$destino') ORDER BY `hora`;";
 //$query2 ="SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`parada`='$origen' OR `parada`='$destino' ) GROUP BY(`id_ruta`);";
-$query3 = "SELECT ORIGEN.`parada` as origen, ORIGEN.hora as salida,  DESTINO.`parada` as destino, DESTINO.hora as llegada, rutas.id_ruta, rutas.dias_semana FROM `paradas`  ORIGEN, `paradas`  DESTINO, `rutas`  WHERE ORIGEN.id_ruta=DESTINO.id_ruta AND ORIGEN.hora<DESTINO.hora AND ORIGEN.parada='$origen' AND DESTINO.parada='$destino' AND ORIGEN.id_ruta=rutas.id AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%');";
+$query3 = "SELECT ORIGEN.`parada` as origen, ORIGEN.hora as salida,  DESTINO.`parada` as destino, DESTINO.hora as llegada, rutas.id_ruta, rutas.dias_semana FROM `paradas`  ORIGEN, `paradas`  DESTINO, `rutas`  WHERE ORIGEN.id_ruta=DESTINO.id_ruta AND ORIGEN.hora<DESTINO.hora AND ORIGEN.parada='$origen' AND DESTINO.parada='$destino' AND ORIGEN.id_ruta=rutas.id AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND (rutas.medio='$autobus' OR rutas.medio='$tren');";
 echo "<br><br><br>";
 echo $query3;
 echo "<br><br><br>";

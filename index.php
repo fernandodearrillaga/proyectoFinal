@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <script src="validacion.js"></script>
     </head>
     <header>
         <?php require_once('header.html');?>
@@ -16,7 +17,7 @@ and open the template in the editor.
         <?php
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";
-        $sql=$conexion->query("SELECT DISTINCT `parada` FROM `paradas`");
+        $sql=$conexion->query("SELECT DISTINCT `parada` FROM `paradas` ORDER BY `parada`");
         //var_dump($sql);
         //SELECT DISTINCT `lugar_salida` FROM `rutas`;
         $lugares=[];
@@ -30,7 +31,7 @@ and open the template in the editor.
         ?>
         <br>
 
-        <form class="formulario" action="resultado.php" method="post">
+        <form name="busqueda" class="formulario" action="resultado.php" method="post" onsubmit="return validacion()">
         <label>Origen</label>
         <select name="origen" id="origen">
             <?php
@@ -52,8 +53,12 @@ and open the template in the editor.
             ?>
 
         </select>
-        <input type="date" name="fecha" id="fecha">
-        <input type="submit" value="Submit">
+        <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
+        <input type="checkbox" id="medios" name="autobus" value="AUTOBUS" checked>
+        <label for="autobus"> AUTOBÚS</label><br>
+        <input type="checkbox" id="medios" name="tren" value="TREN" checked>
+        <label for="tren"> TREN </label><br>
+        <input type="submit" value="BUSCAR">
         </form>
         
         
