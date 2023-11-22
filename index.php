@@ -54,9 +54,9 @@ and open the template in the editor.
 
         </select>
         <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
-        <input type="checkbox" id="medios" name="autobus" value="AUTOBUS" checked>
+        <input type="checkbox" id="autobus" name="autobus" value="AUTOBUS" checked>
         <label for="autobus"> AUTOBÚS</label><br>
-        <input type="checkbox" id="medios" name="tren" value="TREN" checked>
+        <input type="checkbox" id="tren" name="tren" value="TREN" checked>
         <label for="tren"> TREN </label><br>
         <input type="submit" value="BUSCAR">
         </form>
