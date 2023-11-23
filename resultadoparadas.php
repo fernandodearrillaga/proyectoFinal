@@ -8,12 +8,29 @@ var_dump($_POST);
 $parada= $_POST["parada"];
 
 $fecha= $_POST["fecha"];
-$autobus= $_POST["autobus"];
-$tren= $_POST["tren"];
+if (!empty($_POST["autobus"])) {
+  $autobus=$_POST["autobus"] ;
+} else{
+  $autobus=" ";
+}
+
+if (!empty($_POST["tren"])) {
+  $tren=$_POST["tren"] ;
+} else{
+  $tren=" ";
+}
 echo $fecha;
 //$query = "SELECT * FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`id_ruta` IN (SELECT `id` FROM `rutas` WHERE `lugar_salida`='$origen')) AND (`parada`= '$origen' OR `parada`= '$destino') ORDER BY `hora`;";
 //$query2 ="SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`parada`='$origen' OR `parada`='$destino' ) GROUP BY(`id_ruta`);";
-$query3 = "SELECT *, paradas.hora, rutas.lugar_llegada, operadores.web FROM `paradas`, `rutas`, `operadores` WHERE `parada`='$parada' AND paradas.id_ruta=rutas.id AND rutas.lugar_llegada!=`parada` AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND (rutas.medio='$autobus' OR rutas.medio='$tren') ORDER BY `hora`";
+
+if ($_POST["direccion"]=="Origen") {
+  $query3 = "SELECT  *, paradas.hora, rutas.lugar_llegada, (SELECT web FROM `operadores` WHERE nombre =rutas.operador) as web  FROM `paradas`, `rutas`, `operadores` WHERE `parada`='$parada' AND paradas.id_ruta=rutas.id AND rutas.lugar_llegada!=`parada` AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND (rutas.medio='$autobus' OR rutas.medio='$tren') AND rutas.operador=operadores.nombre  ORDER BY `hora` ";
+
+  echo "<h1>Salidas desde ". $parada."</h1>";
+} else{
+  $query3 = "SELECT  *, paradas.hora, rutas.lugar_llegada, (SELECT web FROM `operadores` WHERE nombre =rutas.operador) as web  FROM `paradas`, `rutas`, `operadores` WHERE `parada`='$parada' AND paradas.id_ruta=rutas.id AND rutas.lugar_llegada=`parada` AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND (rutas.medio='$autobus' OR rutas.medio='$tren') AND rutas.operador=operadores.nombre  ORDER BY `hora` ";
+  echo "<h1>Llegadas a ". $parada."</h1>";
+}
 echo "<br><br><br>";
 echo $query3;
 echo "<br><br><br>";
@@ -46,7 +63,12 @@ var_dump($rows);
           echo "<div class='card-body'>";
           echo "<table class='table'>";
           echo "<tr>";
-          echo "<td>".$rows[$i]["lugar_llegada"]."</td>";
+          if ($_POST["direccion"]=="Origen") {
+            echo "<td>".$rows[$i]["lugar_llegada"]."</td>";
+          } else{
+            echo "<td>".$rows[$i]["lugar_salida"]."</td>";
+          }
+          
           echo "<td>".$rows[$i]["hora"]."</td>";
           echo "</tr>";
           echo "<tr>";
