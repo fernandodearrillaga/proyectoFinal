@@ -21,3 +21,12 @@ function validacion() {
 
 
   }
+  function validacionParadas(){
+    let tren = document.getElementById("tren");
+    let autobus = document.getElementById("autobus");
+
+    if(!tren.checked && !autobus.checked){
+      alert("No se ha seleccionado ningún medio de transporte");
+      return false;
+    }
+  }

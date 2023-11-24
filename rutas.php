@@ -9,7 +9,38 @@
     <?php require_once('header.html');?>
 </header>
 <body>
-    
+<?php
+        $conexion=mysqli_connect("localhost", "root", "", "transporte");
+        //echo "hola";
+        $sql=$conexion->query("SELECT * FROM `rutas` WHERE 1 GROUP BY `id_ruta` ORDER BY `lugar_salida`,`lugar_llegada` ,`medio`");
+        //var_dump($sql);
+        //SELECT DISTINCT `lugar_salida` FROM `rutas`;
+        $rutas=[];
+        while ($row = mysqli_fetch_assoc($sql)) {
+            array_push($rutas, $row);
+              //print_r($rows, $row);
+          }
+        //var_dump($rutas);
+        ?>
+        <br>
+
+        <form name="busqueda" class="formulario" action="resultadorutas.php" method="post">
+        <label>Ruta</label>
+        <select name="ruta" id="ruta">
+            <?php
+            foreach ($rutas as $value){
+                echo "<option value=".$value['id_ruta'].">". $value["lugar_salida"]."-".$value["lugar_llegada"]. " ".$value["medio"]." </option>";
+            }
+            
+            ?>
+
+        </select>
+        <br>
+        <label for="fecha">Fecha</label>
+        <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
+        
+        <input type="submit" value="BUSCAR">
+        </form>
 </body>
 <footer>
     <?php require_once('footer.html');?>

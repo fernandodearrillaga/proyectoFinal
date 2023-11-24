@@ -48,6 +48,9 @@ while ($row = mysqli_fetch_assoc($sql)) {
   array_push($rows, $row);
     //print_r($rows, $row);
 }
+if (count($rows)==0){
+  echo "No se ha encontrado ningún resultado";
+}
 //var_dump($rows);
 
 

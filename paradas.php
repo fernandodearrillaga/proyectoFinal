@@ -27,7 +27,7 @@
         ?>
         <br>
 
-        <form name="busqueda" class="formulario" action="resultadoparadas.php" method="post" onsubmit="return validacion()">
+        <form name="busqueda" class="formulario" action="resultadoparadas.php" method="post" onsubmit="return validacionParadas()">
         <label>Parada</label>
         <select name="parada" id="parada">
             <?php
