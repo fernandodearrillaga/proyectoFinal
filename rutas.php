@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rutas</title>
 </head>
 <header>
     <?php require_once('header.html');?>
@@ -40,8 +40,15 @@
         <label for="fecha">Fecha</label>
         <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
         
-        <input type="submit" value="BUSCAR">
+        <input type="submit" class="btn btn-primary" value="BUSCAR">
         </form>
+
+        <div class="row justify-content-around">
+            <?php
+            require_once("tarjetaplanificador.html");
+            require_once("tarjetahorarios.html");
+            ?>
+        </div>
 </body>
 <footer>
     <?php require_once('footer.html');?>

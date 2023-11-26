@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de la búsqueda</title>
+</head>
 <header>
         <?php require_once('header.html');?>
     </header>
@@ -53,8 +60,8 @@ while ($row = mysqli_fetch_assoc($sql)) {
 //$row = mysqli_fetch_array($sql);
 //var_dump($row);
 ?>
-<div class="row">
-  <div class="col-sm-8">
+<div class="row justify-content-center">
+  <div class="col-sm-8 col-12">
     
       
         <?php
@@ -95,3 +102,4 @@ while ($row = mysqli_fetch_assoc($sql)) {
 <footer>
      <?php require_once('footer.html');?>
 </footer>
+</html>

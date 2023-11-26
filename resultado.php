@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de la búsqueda</title>
+</head>
 <header>
         <?php require_once('header.html');?>
     </header>
@@ -26,6 +33,7 @@ if (!empty($_POST["tren"])) {
 } else{
   $tren=" ";
 }
+
 //echo $fecha;
 //$query = "SELECT * FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`id_ruta` IN (SELECT `id` FROM `rutas` WHERE `lugar_salida`='$origen')) AND (`parada`= '$origen' OR `parada`= '$destino') ORDER BY `hora`;";
 //$query2 ="SELECT *, MIN(`hora`), MAX(`hora`) FROM `paradas` WHERE `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$origen') AND `id_ruta` IN (SELECT `id_ruta` FROM `paradas` WHERE `parada`='$destino') AND (`parada`='$origen' OR `parada`='$destino' ) GROUP BY(`id_ruta`);";
@@ -37,6 +45,8 @@ $conexion=mysqli_connect("localhost", "root", "", "transporte");
 $sql=$conexion->query($query3);
 //var_dump($sql);
 echo "<br>";
+echo "<h4>Origen: $origen</h4>";
+echo "<h4>Destino: $destino</h4>";
 ?>
 
 
@@ -59,7 +69,7 @@ if (count($rows)==0){
       //print_r($rows, $row);
   }
 }
-var_dump($rows);
+//var_dump($rows);
 
 
 //$row = mysqli_fetch_array($sql);
@@ -68,8 +78,8 @@ var_dump($rows);
 <?php
 if ($transbordo==false){
   ?>
-  <div class="row">
-  <div class="col-sm-8">
+  <div class="row justify-content-center">
+  <div class="col-sm-8 col-12">
     
       
         <?php
@@ -108,8 +118,8 @@ if ($transbordo==false){
 <?php
 } else {
   ?>
-  <div class="row">
-  <div class="col-sm-8">
+  <div class="row justify-content-center">
+  <div class="col-sm-8 col-12">
     
       
         <?php
@@ -181,3 +191,4 @@ if ($transbordo==false){
 <footer>
      <?php require_once('footer.html');?>
 </footer>
+</html>

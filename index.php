@@ -7,8 +7,9 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Planificador de rutas</title>
         <script src="validacion.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <header>
         <?php require_once('header.html');?>
@@ -33,7 +34,7 @@ and open the template in the editor.
         ?>
         <br>
 
-        <form name="busqueda" class="formulario" action="resultado.php" method="post" onsubmit="return validacion()">
+        <form name="busqueda" class="formulario  border border-primary col-12 col-md-7 m-2 p-3" action="resultado.php" method="post" onsubmit="return validacion()">
         <label>Origen</label>
         <select name="origen" id="origen">
             <?php
@@ -44,6 +45,7 @@ and open the template in the editor.
             ?>
 
         </select>
+        <br>
 
         <label>Destino</label>
         <select name="destino" id="destino">
@@ -55,15 +57,23 @@ and open the template in the editor.
             ?>
 
         </select>
+        <br>
         <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
         <input type="checkbox" id="autobus" name="autobus" value="AUTOBUS" checked>
-        <label for="autobus"> AUTOBÚS</label><br>
+        <label for="autobus"> AUTOBÚS</label>
         <input type="checkbox" id="tren" name="tren" value="TREN" checked>
         <label for="tren"> TREN </label><br>
-        <input type="submit" value="BUSCAR">
+        <input type="submit" class="btn btn-primary" value="BUSCAR">
         </form>
         
         
+
+        <div class="row justify-content-around">
+            <?php
+            require_once("tarjetarutas.html");
+            require_once("tarjetahorarios.html");
+            ?>
+        </div>
     </body>
 
     <footer>

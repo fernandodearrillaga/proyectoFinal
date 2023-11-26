@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Salidas y llegadas</title>
     <script src="validacion.js"></script>
 </head>
 <header>
@@ -50,8 +50,15 @@
         <label for="autobus"> AUTOBÚS</label><br>
         <input type="checkbox" id="tren" name="tren" value="TREN" checked>
         <label for="tren"> TREN </label><br>
-        <input type="submit" value="BUSCAR">
+        <input type="submit" class="btn btn-primary" value="BUSCAR">
         </form>
+
+        <div class="row justify-content-around">
+            <?php
+            require_once("tarjetaplanificador.html");
+            require_once("tarjetarutas.html");
+            ?>
+        </div>
 </body>
 <footer>
     <?php require_once('footer.html');?>
