@@ -10,6 +10,7 @@
     <?php require_once('header.html');?>
 </header>
 <body>
+    <h1>Salidas y llegadas</h1>
 <?php
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";

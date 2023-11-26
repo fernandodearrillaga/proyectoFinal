@@ -9,6 +9,7 @@
     <?php require_once('header.html');?>
 </header>
 <body>
+    <h1>Todas las rutas</h1>
 <?php
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";

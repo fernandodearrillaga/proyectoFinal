@@ -14,7 +14,9 @@ and open the template in the editor.
         <?php require_once('header.html');?>
     </header>
     <body>
+        <h1> Planificador de rutas</h1>
         <?php
+
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";
         $sql=$conexion->query("SELECT DISTINCT `parada` FROM `paradas` ORDER BY `parada`");
