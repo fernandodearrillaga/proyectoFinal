@@ -28,7 +28,7 @@
         ?>
         <br>
 
-        <form name="busqueda" class="formulario" action="resultadoparadas.php" method="post" onsubmit="return validacionParadas()">
+        <form name="busqueda" class="formulario border border-primary col-12 col-md-7 m-2 p-3" action="resultadoparadas.php" method="post" onsubmit="return validacionParadas()">
         <label>Parada</label>
         <select name="parada" id="parada">
             <?php

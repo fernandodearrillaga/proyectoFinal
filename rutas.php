@@ -25,7 +25,7 @@
         ?>
         <br>
 
-        <form name="busqueda" class="formulario" action="resultadorutas.php" method="post">
+        <form name="busqueda" class="formulario border border-primary col-12 col-md-7 m-2 p-3" action="resultadorutas.php" method="post">
         <label>Ruta</label>
         <select name="ruta" id="ruta">
             <?php
