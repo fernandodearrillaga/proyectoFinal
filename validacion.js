@@ -15,11 +15,22 @@ function validacion() {
       return false;
     }
 
+    let hoy = new Date();
+    let fecha = new Date(document.getElementById("fecha").value);
     
+    if (fecha<hoy){
+      alert("La fecha está en el pasado");
+      return false;
 
-    
+  }
 
+  function validacionFecha() {
+    if (fecha<hoy){
+      alert("La fecha está en el pasado");
+      return false;
 
+  }
+    }
   }
   function validacionParadas(){
     let tren = document.getElementById("tren");
@@ -29,4 +40,11 @@ function validacion() {
       alert("No se ha seleccionado ningún medio de transporte");
       return false;
     }
+
+    if (fecha<hoy){
+      alert("La fecha está en el pasado");
+      return false;
+
+  }
+    
   }

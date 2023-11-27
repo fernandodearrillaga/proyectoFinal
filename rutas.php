@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rutas</title>
+    <script src="validacion.js"></script>
 </head>
 <header>
     <?php require_once('header.html');?>
@@ -25,7 +26,7 @@
         ?>
         <br>
 
-        <form name="busqueda" class="formulario border border-primary col-12 col-md-7 m-2 p-3" action="resultadorutas.php" method="post">
+        <form name="busqueda" class="formulario border border-primary col-12 col-md-7 m-2 p-3" action="resultadorutas.php" method="post" onsubmit="return validacionFecha()">
         <label>Ruta</label>
         <select name="ruta" id="ruta">
             <?php
