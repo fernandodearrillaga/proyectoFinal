@@ -45,8 +45,10 @@
             </ul>
 
 
-            
-            <div class="d-flex">
+            <?php
+            if (!isset($_SESSION["usuario"])) {
+                ?>
+                <div class="d-flex">
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,6 +78,32 @@
                   <a class="nav-link" aria-current="page" href="registro.php">Registrarse</a>
                 </li>
               </div>
+              
+              <?php
+            } else{
+                ?>
+
+                <div class="d-flex">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <?php echo $_SESSION["usuario"] ?>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end menuIniciar">
+                    <form class="px-4 py-3" method="post" action="cerrarSesion.php">
+                      <div class="mb-3">
+
+                      <button type="submit" class="btn btn-primary">Cerrar sesión</button>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <?php
+            }
+            ?>
+            
 
 
             </div>

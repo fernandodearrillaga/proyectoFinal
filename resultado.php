@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +10,7 @@
     <title>Resultado de la búsqueda</title>
 </head>
 <header>
-        <?php require_once('header.html');?>
+        <?php require_once('header.php');?>
     </header>
 <h1>Resultados de la búsqueda</h1>
 <?php

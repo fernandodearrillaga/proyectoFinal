@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -12,11 +16,12 @@ and open the template in the editor.
         <link rel="stylesheet" href="style.css">
     </head>
     <header>
-        <?php require_once('header.html');?>
+        <?php require_once('header.php');?>
     </header>
     <body>
         <h1> Planificador de rutas</h1>
         <?php
+        
 
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";

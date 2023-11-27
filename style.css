@@ -6,3 +6,10 @@
 body {
     padding-top: 80px;
  }
+
+ .menuIniciar{
+    min-width: 300px;
+    position: absolute;
+    left: -70px;
+    
+ }
