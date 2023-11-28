@@ -17,11 +17,11 @@ $nombre= $_POST["nombre"];
 $correo= $_POST["correo"];
 $password= $_POST["password"];
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
-        
+
 
         $sql=$conexion->query("INSERT INTO `usuarios`(`id`, `nombre`, `correo`, `contraseña`, `Tipo`) VALUES ('','$nombre','$correo','$password','usuario')");
 
-        echo ("Se ha introducido el correo");
+        echo ("Se ha registrado el usuario");
 ?>
 </body>
 <footer>
