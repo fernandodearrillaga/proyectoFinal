@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,7 @@
     <title>Resultados de la búsqueda</title>
 </head>
 <header>
-        <?php require_once('header.html');?>
+        <?php require_once('header.php');?>
 </header>
 <?php
 //var_dump($_POST);
@@ -82,6 +85,17 @@ while ($row = mysqli_fetch_assoc($sql)) {
 </div>
 
 </table>
+
+
+<?php
+if (isset($_SESSION)) {
+  $id=$_SESSION["id"];
+  $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `id_usuario`) VALUES (NULL,NULL,NULL,$ruta,NULL,'$fecha','$id');";
+
+  $conexion->query($query);
+};
+?>
+
 <footer>
      <?php require_once('footer.html');?>
 </footer>

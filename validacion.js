@@ -16,6 +16,7 @@ function validacion() {
     }
 
     let hoy = new Date();
+    hoy.setHours(0,0,0,0);
     let fecha = new Date(document.getElementById("fecha").value);
     
     if (fecha<hoy){
@@ -31,6 +32,7 @@ function validacion() {
 
   function validacionFecha() {
     let hoy = new Date();
+    hoy.setHours(0,0,0,0);
     let fecha = new Date(document.getElementById("fecha").value);
     if (fecha<hoy){
       alert("La fecha está en el pasado");
@@ -48,6 +50,7 @@ function validacion() {
     }
 
     let hoy = new Date();
+    hoy.setHours(0,0,0,0);
     let fecha = new Date(document.getElementById("fecha").value);
     if (fecha<hoy){
       alert("La fecha está en el pasado");

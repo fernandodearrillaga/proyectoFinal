@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +10,10 @@
     <script src="validacion.js"></script>
 </head>
 <header>
-    <?php require_once('header.html');?>
+    <?php require_once('header.php');?>
 </header>
 <body>
-    <h1>Todas las rutas</h1>
+    <h1 class="p-3">Todas las rutas</h1>
 <?php
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";
@@ -51,6 +54,8 @@
             ?>
         </div>
 </body>
+
+
 <footer>
     <?php require_once('footer.html');?>
 </footer>

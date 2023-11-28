@@ -93,7 +93,7 @@
                     <form class="px-4 py-3" method="post" action="cerrarSesion.php">
                       <div class="mb-3">
 
-                      <button type="submit" class="btn btn-primary">Cerrar sesión</button>
+                      <a class="nav-link" href="cerrarSesion.php">Cerrar sesión</a>
                     </form>
                   </div>
                 </li>

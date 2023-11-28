@@ -19,23 +19,22 @@ and open the template in the editor.
         <?php require_once('header.php');?>
     </header>
     <body>
-        <h1> Planificador de rutas</h1>
+        <h1 class="p-3"> Planificador de rutas</h1>
         <?php
         
 
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
-        //echo "hola";
+        
         $sql=$conexion->query("SELECT DISTINCT `parada` FROM `paradas` ORDER BY `parada`");
-        //var_dump($sql);
-        //SELECT DISTINCT `lugar_salida` FROM `rutas`;
+
         $lugares=[];
         foreach ($sql as $value) {
-          //  echo $value["parada"];
+
             array_push($lugares, $value["parada"]);
-            //var_dump($value);
+
             
         }
-       // var_dump($lugares);
+
         ?>
         <br>
 
@@ -75,6 +74,10 @@ and open the template in the editor.
 
         <div class="row justify-content-around">
             <?php
+            if (isset($_SESSION["usuario"])) {
+                require_once("historial.php");
+            }
+            
             require_once("tarjetarutas.html");
             require_once("tarjetahorarios.html");
             ?>

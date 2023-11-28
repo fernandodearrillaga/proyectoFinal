@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 ?>
@@ -12,7 +13,7 @@ session_start();
 <header>
         <?php require_once('header.php');?>
     </header>
-<h1>Resultados de la búsqueda</h1>
+<h1 class="p-4">Resultados de la búsqueda</h1>
 <?php
 //echo "resultado";
 //var_dump($_POST);
@@ -49,10 +50,23 @@ $conexion=mysqli_connect("localhost", "root", "", "transporte");
 $sql=$conexion->query($query3);
 //var_dump($sql);
 echo "<br>";
-echo "<h4>Origen: $origen</h4>";
-echo "<h4>Destino: $destino</h4>";
 ?>
+<div class="justify-content-center col-12 col-md-4 p-3">
+  <div class="card  d-flex">
+  <div class="p-3">
+  <?php
+  echo "<h4>Origen: $origen</h4>";
+  ?></div>
+  <div class="p-3"><?php
+  echo "<h4>Destino: $destino</h4>";
 
+  ?></div>
+  <div class="p-3">
+  <a href="index.php" class="btn btn-primary w-50">Volver atrás</a>
+  </div>
+  </div>
+</div>
+<br>
 
 
 <?php
@@ -64,7 +78,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
 }
 $transbordo=false;
 if (count($rows)==0){
-  echo "No se ha encontrado ningún resultado";
+  //echo "No se ha encontrado ningún resultado";
   $transbordo=true;
   $query3="SELECT ORIGEN.* , P1.*, P2.* , DESTINO.*, ORIGEN.parada as origen, ORIGEN.hora as salida, P1.parada as parada_tr, P1.hora as llegada_tr, P2.hora as salida_tr, DESTINO.parada as destino, DESTINO.hora as llegada, (SELECT operador from rutas WHERE id=ORIGEN.id_ruta) as operador1, (SELECT operador from rutas WHERE id=DESTINO.id_ruta) as operador2, (SELECT web from operadores WHERE operadores.nombre=operador1) as web1, (SELECT web from operadores WHERE operadores.nombre=operador2) as web2, (SELECT medio from rutas WHERE id=ORIGEN.id_ruta) as medio1, (SELECT medio from rutas WHERE id=DESTINO.id_ruta) as medio2 FROM `paradas` ORIGEN, `paradas` DESTINO, `paradas` P1, `paradas` P2 WHERE ORIGEN.hora<DESTINO.hora AND ORIGEN.hora<P1.hora AND ORIGEN.parada='MADRID' AND DESTINO.parada='GIRONA' AND ORIGEN.id_ruta=P1.id_ruta AND P1.parada=P2.parada AND P2.id_ruta=DESTINO.id_ruta;";
   $sql=$conexion->query($query3);
@@ -83,7 +97,7 @@ if (count($rows)==0){
 if ($transbordo==false){
   ?>
   <div class="row justify-content-center">
-  <div class="col-sm-8 col-12">
+  <div class="col-sm-8 col-12 p-3">
     
       
         <?php
@@ -123,7 +137,7 @@ if ($transbordo==false){
 } else {
   ?>
   <div class="row justify-content-center">
-  <div class="col-sm-8 col-12">
+  <div class="col-sm-8 col-12 p-3">
     
       
         <?php
@@ -139,42 +153,56 @@ if ($transbordo==false){
           echo "<td>".$rows[$i]["destino"]."</td>";
           echo "<td>".$rows[$i]["llegada"]."</td>";
           echo "</tr>";
-          echo "<tr>";
-          echo "<td>".$rows[$i]["origen"]."</td>";
-          echo "<td>".$rows[$i]["salida"]."</td>";
-          echo "</tr>";
-          echo "<tr>";
-          echo "<td>".$rows[$i]["parada_tr"]."</td>";
-          echo "<td>".$rows[$i]["llegada_tr"]."</td>";
-          echo "</tr>";
-          echo "<tr>";
-          echo "<td>".$rows[$i]["medio1"]."</td>";
-          echo "<td>".$rows[$i]["operador1"]."</td>";
-          //echo "<td>".$rows[$i]["web1"]."</td>";
-          ?>
-          <td><a href="<?php echo $rows[$i]["web1"] ?>" class="btn btn-primary">Ir a la web de la compañía</a></td>
-          <?php
-          echo "</tr>";
-          echo "<tr>";
-          echo "<td>".$rows[$i]["parada_tr"]."</td>";
-          echo "<td>".$rows[$i]["salida_tr"]."</td>";
-          echo "</tr>";
-          echo "<tr>";
-          echo "<td>".$rows[$i]["destino"]."</td>";
-          echo "<td>".$rows[$i]["llegada"]."</td>";
-          echo "</tr>";
-          echo "<tr>";
-          echo "<td>".$rows[$i]["medio2"]."</td>";
-          echo "<td>".$rows[$i]["operador2"]."</td>";
-          //echo "<td>".$rows[$i]["web2"]."</td>";
-          ?>
-          <td><a href="<?php echo $rows[$i]["web2"] ?>" class="btn btn-primary">Ir a la web de la compañía</a></td>
-          <?php
-          echo "</tr>";
           echo "</table>";
           ?>
+          <p>
+          <button class="btn btn-primary w-75" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Más Información
+              </button>
+            
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              <?php
+              echo "<table class='table'>";
+              echo "<tr>";
+              echo "<td>".$rows[$i]["origen"]."</td>";
+              echo "<td>".$rows[$i]["salida"]."</td>";
+              echo "</tr>";
+              echo "<tr>";
+              echo "<td>".$rows[$i]["parada_tr"]."</td>";
+              echo "<td>".$rows[$i]["llegada_tr"]."</td>";
+              echo "</tr>";
+              echo "<tr>";
+              echo "<td>".$rows[$i]["medio1"]."</td>";
+              echo "<td>".$rows[$i]["operador1"]."</td>";
+              echo "</table>"
+              ?>
+              <td><a href="<?php echo $rows[$i]["web1"] ?>" class="btn btn-primary w-50">Ir a la web de la compañía</a></td>
+              </table>
+              <br>
+
+              <?php
+              echo "<table class='table'>";
+              echo "<td>".$rows[$i]["parada_tr"]."</td>";
+              echo "<td>".$rows[$i]["salida_tr"]."</td>";
+              echo "</tr>";
+              echo "<tr>";
+              echo "<td>".$rows[$i]["destino"]."</td>";
+              echo "<td>".$rows[$i]["llegada"]."</td>";
+              echo "</tr>";
+              echo "<tr>";
+              echo "<td>".$rows[$i]["medio2"]."</td>";
+              echo "<td>".$rows[$i]["operador2"]."</td>";
+              echo "</table>"
+              ?>
+              <td><a href="<?php echo $rows[$i]["web1"] ?>" class="btn btn-primary w-50">Ir a la web de la compañía</a></td>
+              </table>
+            </div>
+          </div>
+    
           
-          <a href="<?php echo $rows[$i]["web"] ?>" class="btn btn-primary">Ir a la web de la compañía</a>
+          
           <?php
           echo "</div>";
           echo "</div>";
@@ -189,6 +217,13 @@ if ($transbordo==false){
 
 <?php
 }
+
+if (isset($_SESSION)) {
+  $id=$_SESSION["id"];
+  $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `autobus`, `tren`, `id_usuario`) VALUES (NULL,'$origen','$destino',NULL,NULL,'$fecha','$autobus','$tren','$id');";
+
+  $conexion->query($query);
+};
 ?>
 
 
