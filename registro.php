@@ -18,16 +18,16 @@ session_start();
 
         <div class="p-2 form-group">
             <label for="Nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Nombre">
+            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Nombre" required>
             
           </div>
           <div class="p-2 form-group">
             <label for="Contraseña">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
           </div>
           <div class="p-2 form-group">
             <label for="Correo">Correo</label>
-            <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo">
+            <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo" required>
           </div>
           <div class="p-2 form-group">
           <button type="submit" class="btn btn-primary" >Registrarse</button>

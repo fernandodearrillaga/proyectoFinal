@@ -6,6 +6,9 @@
 body {
     padding-top: 80px;
     background-image: url(img/background.jpg);
+    min-height: 100vh;
+   display: flex;
+   flex-direction: column;
  }
 
  .menuIniciar{
@@ -17,4 +20,8 @@ body {
 
  .card-img-top{
     max-height: 230px;
+ }
+
+ footer {
+   margin-top: auto;
  }

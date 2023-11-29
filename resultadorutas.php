@@ -24,9 +24,14 @@ session_start();
 <?php
 //var_dump($_POST);
 $ruta= $_POST["ruta"];
-$fecha= $_POST["fecha"];
-$query = "SELECT *, rutas.id as viaje, operadores.web FROM `paradas`, rutas, operadores WHERE rutas.lugar_salida=(SELECT lugar_salida from rutas where id_ruta=$ruta) AND rutas.lugar_llegada=(SELECT lugar_llegada from rutas where id_ruta=$ruta) AND paradas.id_ruta=rutas.id AND rutas.medio=(SELECT medio from rutas where id_ruta=$ruta) AND rutas.operador=operadores.nombre AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') ORDER BY rutas.id, rutas.hora_salida, paradas.hora";
+$_SESSION["ruta"]=$ruta;
+$rutaSesion=$_SESSION["ruta"];
 
+$fecha= $_POST["fecha"];
+$_SESSION["fecha"]=$fecha;
+$fechaSesion=$_SESSION["fecha"];
+$query = "SELECT *, rutas.id as viaje, operadores.web FROM `paradas`, rutas, operadores WHERE rutas.lugar_salida=(SELECT lugar_salida from rutas where id_ruta=$rutaSesion GROUP BY lugar_salida) AND rutas.lugar_llegada=(SELECT lugar_llegada from rutas where id_ruta=$rutaSesion GROUP BY lugar_llegada) AND paradas.id_ruta=rutas.id AND rutas.medio=(SELECT medio from rutas where id_ruta=$rutaSesion GROUP BY medio) AND rutas.operador=operadores.nombre AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fechaSesion'), '%') ORDER BY rutas.id, rutas.hora_salida, paradas.hora";
+//echo $query;
 //echo "<br><br><br>";
 //echo $query;
 //echo "<br><br><br>";
@@ -53,9 +58,22 @@ while ($row = mysqli_fetch_assoc($sql)) {
         echo "<div class='card-body'>";
         echo "<table class='table'>";
         $viaje=$rows[0]["viaje"];
+        
         for ($i=0; $i < count($rows); $i++) { 
+          
             if ($rows[$i]["viaje"]!=$viaje) {
                 echo "</table>";
+
+                if ($_SESSION["tipo"]=="admin") {
+                  ?>
+                  <a href="addParada.php" class="btn btn-warning">Añadir parada</a>
+                  <?php
+              }
+                echo "</div>";
+                echo "</div>";
+                echo "<br>";
+                echo "<div class='card'>";
+                echo "<div class='card-body'>";
                 echo "<table class='table'>";
             }
             $viaje=$rows[$i]["viaje"];
@@ -72,15 +90,40 @@ while ($row = mysqli_fetch_assoc($sql)) {
           echo "</tr>";
           
           
+          
         }
+        
+          
+          
         echo "</table>";
+        if ($_SESSION["tipo"]=="admin") {
           ?>
+          <form>
+            
+          </form>
+          <a href="addParada.php" class="btn btn-warning">Añadir parada</a>
+          <?php
+      }
+      echo "</div>";
+      echo "</div>";
+          ?>
+          <br>
+          <div class="d-flex justify-content-center">
+          <div class="card col-12  p-3 ">
           <table class='table'>
           <tr>
             <td><?php echo $rows[0]["operador"]?></td>
             <td><a href="<?php echo $rows[0]["web"] ?>" class="btn btn-primary">Ir a la web de la compañía</a></td>
+
             
           </tr>
+          <?php
+          /*if ($_SESSION["tipo"]=="admin") {
+            ?>
+            <a href="addParada.php" class="btn btn-warning">Añadir parada</a>
+            <?php
+        }*/
+          ?>
     </table>
           
           <?php
