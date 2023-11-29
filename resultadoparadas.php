@@ -37,7 +37,7 @@ if (!empty($_POST["tren"])) {
 
 
 <?php
-if ($_POST["direccion"]=="Origen") {
+if ($_POST["direccion"]=="origen") {
   $query3 = "SELECT  *, paradas.hora, rutas.lugar_llegada, (SELECT web FROM `operadores` WHERE nombre =rutas.operador) as web  FROM `paradas`, `rutas`, `operadores` WHERE `parada`='$parada' AND paradas.id_ruta=rutas.id AND rutas.lugar_llegada!=`parada` AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND (rutas.medio='$autobus' OR rutas.medio='$tren') AND rutas.operador=operadores.nombre  ORDER BY `hora` ";
 
   echo "<h1>Salidas desde ". $parada."</h1>";
@@ -82,7 +82,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
           echo "<div class='card-body'>";
           echo "<table class='table'>";
           echo "<tr>";
-          if ($_POST["direccion"]=="Origen") {
+          if ($_POST["direccion"]=="origen") {
             echo "<td>".$rows[$i]["lugar_llegada"]."</td>";
           } else{
             echo "<td>".$rows[$i]["lugar_salida"]."</td>";
@@ -113,11 +113,11 @@ while ($row = mysqli_fetch_assoc($sql)) {
 <?php
 if (isset($_SESSION)) {
   $id=$_SESSION["id"];
-  if($_POST["direccion"]=="Origen"){
+  if($_POST["direccion"]=="origen"){
 
-    $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `id_usuario`) VALUES (NULL,'origen',NULL,NULL,'$parada','$fecha','$id');";
+    $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `autobus`, `tren`, `id_usuario`) VALUES (NULL,'origen',NULL,NULL,'$parada','$fecha','$autobus','$tren','$id');";
   }else{
-    $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `id_usuario`) VALUES (NULL,NULL,'destino',NULL,'$parada','$fecha','$id');";
+    $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `autobus`, `tren`, `id_usuario`) VALUES (NULL,NULL,'destino',NULL,'$parada','$fecha','$autobus','$tren','$id');";
 
   }
   

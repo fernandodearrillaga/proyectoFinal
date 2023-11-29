@@ -11,15 +11,25 @@ session_start();
 <header>
         <?php require_once('header.php');?>
 </header>
+
+<div class="d-flex justify-content-center">
+  <div class="card col-12 col-md-6 p-3 ">
+<h1 class="p-4">Resultados de la búsqueda</h1>
+<div class="p-3">
+  <a href="rutas.php" class="btn btn-primary w-50">Volver atrás</a>
+  </div>
+</div>
+</div>
+
 <?php
 //var_dump($_POST);
 $ruta= $_POST["ruta"];
 $fecha= $_POST["fecha"];
-$query = "SELECT *, rutas.id as viaje, operadores.web FROM `paradas`, rutas, operadores WHERE rutas.lugar_salida=(SELECT lugar_salida from rutas where id=$ruta) AND rutas.lugar_llegada=(SELECT lugar_llegada from rutas where id=$ruta) AND paradas.id_ruta=rutas.id AND rutas.medio=(SELECT medio from rutas where id=$ruta) AND rutas.operador=operadores.nombre AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') ORDER BY rutas.id, rutas.hora_salida, paradas.hora";
+$query = "SELECT *, rutas.id as viaje, operadores.web FROM `paradas`, rutas, operadores WHERE rutas.lugar_salida=(SELECT lugar_salida from rutas where id_ruta=$ruta) AND rutas.lugar_llegada=(SELECT lugar_llegada from rutas where id_ruta=$ruta) AND paradas.id_ruta=rutas.id AND rutas.medio=(SELECT medio from rutas where id_ruta=$ruta) AND rutas.operador=operadores.nombre AND `dias_semana` LIKE CONCAT('%', WEEKDAY('$fecha'), '%') ORDER BY rutas.id, rutas.hora_salida, paradas.hora";
 
-echo "<br><br><br>";
-//echo $query3;
-echo "<br><br><br>";
+//echo "<br><br><br>";
+//echo $query;
+//echo "<br><br><br>";
 $conexion=mysqli_connect("localhost", "root", "", "transporte");
 $sql=$conexion->query($query);
 //var_dump($sql);
@@ -90,7 +100,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
 <?php
 if (isset($_SESSION)) {
   $id=$_SESSION["id"];
-  $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `id_usuario`) VALUES (NULL,NULL,NULL,$ruta,NULL,'$fecha','$id');";
+  $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `id_usuario`) VALUES (NULL,NULL,NULL,$ruta,NULL,'$fecha', '$id');";
 
   $conexion->query($query);
 };

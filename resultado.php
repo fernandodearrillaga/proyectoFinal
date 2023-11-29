@@ -13,7 +13,11 @@ session_start();
 <header>
         <?php require_once('header.php');?>
     </header>
+    <div class="d-flex justify-content-center">
+  <div class="card col-12 col-md-6 p-3 ">
 <h1 class="p-4">Resultados de la búsqueda</h1>
+</div>
+</div>
 <?php
 //echo "resultado";
 //var_dump($_POST);
@@ -51,8 +55,8 @@ $sql=$conexion->query($query3);
 //var_dump($sql);
 echo "<br>";
 ?>
-<div class="justify-content-center col-12 col-md-4 p-3">
-  <div class="card  d-flex">
+<div class="d-flex  justify-content-center">
+  <div class="card col-12 col-md-6 p-3 ">
   <div class="p-3">
   <?php
   echo "<h4>Origen: $origen</h4>";

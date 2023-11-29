@@ -19,7 +19,11 @@ and open the template in the editor.
         <?php require_once('header.php');?>
     </header>
     <body>
+    <div class="d-flex justify-content-center">
+  <div class="card col-12 col-md-6 p-3 ">
         <h1 class="p-3"> Planificador de rutas</h1>
+</div>
+</div>
         <?php
         
 
@@ -37,9 +41,11 @@ and open the template in the editor.
 
         ?>
         <br>
-
-        <form name="busqueda" class="formulario  border border-primary col-12 col-md-7 m-2 p-3" action="resultado.php" method="post" onsubmit="return validacion()">
-        <label>Origen</label>
+        <div class="d-flex justify-content-center">
+        <div class="card col-12 col-md-6  ">
+        <form name="busqueda" class="formulario" action="resultado.php" method="post" onsubmit="return validacion()">
+        <div class="p-1">
+            <label>Origen</label>
         <select name="origen" id="origen">
             <?php
             foreach ($lugares as $value){
@@ -49,8 +55,10 @@ and open the template in the editor.
             ?>
 
         </select>
-        <br>
+        </div>
+        
 
+        <div class="p-1">
         <label>Destino</label>
         <select name="destino" id="destino">
             <?php
@@ -61,19 +69,24 @@ and open the template in the editor.
             ?>
 
         </select>
-        <br>
-        <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
-        <input type="checkbox" id="autobus" name="autobus" value="AUTOBUS" checked>
-        <label for="autobus"> AUTOBÚS</label>
+        </div>
+        
+        <div class="p-1"><input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"></div>
+        <div class="p-1"><input type="checkbox" id="autobus" name="autobus" value="AUTOBUS" checked>
+        <label for="autobus"> AUTOBÚS</label><br>
         <input type="checkbox" id="tren" name="tren" value="TREN" checked>
-        <label for="tren"> TREN </label><br>
-        <input type="submit" class="btn btn-primary" value="BUSCAR">
+        <label for="tren"> TREN </label></div>
+        <div class="p-1"><input type="submit" class="btn btn-primary" value="BUSCAR"></div>
         </form>
+        </div>
+        </div>
+        <br>
         
         
 
         <div class="row justify-content-around">
             <?php
+            $pagina="inicio";
             if (isset($_SESSION["usuario"])) {
                 require_once("historial.php");
             }

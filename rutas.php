@@ -13,7 +13,11 @@ session_start();
     <?php require_once('header.php');?>
 </header>
 <body>
+<div class="d-flex justify-content-center">
+  <div class="card col-12 col-md-6 p-3 ">
     <h1 class="p-3">Todas las rutas</h1>
+</div>
+</div>
 <?php
         $conexion=mysqli_connect("localhost", "root", "", "transporte");
         //echo "hola";
@@ -29,7 +33,10 @@ session_start();
         ?>
         <br>
 
-        <form name="busqueda" class="formulario border border-primary col-12 col-md-7 m-2 p-3" action="resultadorutas.php" method="post" onsubmit="return validacionFecha()">
+        <div class="d-flex justify-content-center">
+        <div class="card col-12 col-md-6  ">
+        <form name="busqueda" class="formulario" action="resultadorutas.php" method="post" onsubmit="return validacionFecha()">
+        <div class="p-1">
         <label>Ruta</label>
         <select name="ruta" id="ruta">
             <?php
@@ -40,15 +47,25 @@ session_start();
             ?>
 
         </select>
-        <br>
+        </div>
+        <div class="p-1">
         <label for="fecha">Fecha</label>
         <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
-        
+        </div>
+        <div class="p-1">
         <input type="submit" class="btn btn-primary" value="BUSCAR">
+        </div>
         </form>
+        </div>
+        </div>
+        <br>
 
         <div class="row justify-content-around">
             <?php
+            $pagina="rutas";
+            if (isset($_SESSION["usuario"])) {
+                require_once("historial.php");
+            }
             require_once("tarjetaplanificador.html");
             require_once("tarjetahorarios.html");
             ?>
