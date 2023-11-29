@@ -2,10 +2,17 @@
 session_start();
 var_dump($_POST);
 $id=$_POST["id"];
+$id_usuario=$_SESSION["id"];
 
 
 $conexion=mysqli_connect("localhost", "root", "", "transporte");
-$sql=$conexion->query("DELETE FROM historial WHERE `historial`.`id` = $id;");
+if (isset($id)) {
+    $query="DELETE FROM historial WHERE `historial`.`id` = $id;";
+} else {
+    $query="DELETE FROM `historial` WHERE `id_usuario`=$id_usuario";
+}
+
+$sql=$conexion->query($query);
 var_dump($sql);
 
 if ($_SESSION["pagina"]=="inicio") {

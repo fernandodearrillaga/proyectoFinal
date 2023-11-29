@@ -55,11 +55,14 @@ session_start();
         <div class="p-1">
         <input type="submit" class="btn btn-primary" value="BUSCAR">
         <?php
-        if ($_SESSION["tipo"]=="admin") {
-            ?>
-            <a href="addRuta.php" class="btn btn-warning">Añadir ruta</a>
-            <?php
+        if (isset($_SESSION["tipo"])) {
+            if ($_SESSION["tipo"]=="admin") {
+                ?>
+                <a href="addRuta.php" class="btn btn-warning">Añadir ruta</a>
+                <?php
+            }
         }
+        
         ?>
         </div>
         </form>

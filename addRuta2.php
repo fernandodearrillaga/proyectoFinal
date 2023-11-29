@@ -34,13 +34,29 @@ if (isset($_POST["domingo"])) {
 }
 
 $conexion=mysqli_connect("localhost", "root", "", "transporte");
-$query="INSERT INTO `rutas`(`id`, `id_ruta`, `lugar_salida`, `lugar_llegada`, `hora_salida`, `hora_llegada`, `dias_semana`, `medio`, `operador`) VALUES (NULL, (SELECT MAX(`id_ruta`)+1 FROM `rutas` as rutas2), '$origen', '$destino' ,'$salida','$llegada','$diasSemana','$medio','$operador')";
+$query="SELECT `id_ruta` FROM `rutas` WHERE `lugar_salida`='$origen' AND `lugar_llegada`='$destino' AND `medio`='$medio' GROUP BY (`id_ruta`)";
 //echo $query;
 $sql=$conexion->query($query);
-$query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$origen','$salida')";
-$sql=$conexion->query($query);
-$query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$destino','$llegada')";
-$sql=$conexion->query($query);
+$row = mysqli_fetch_assoc($sql);
+
+if (!isset($row["id_ruta"])) {
+    
+    $query="INSERT INTO `rutas`(`id`, `id_ruta`, `lugar_salida`, `lugar_llegada`, `hora_salida`, `hora_llegada`, `dias_semana`, `medio`, `operador`) VALUES (NULL, (SELECT MAX(`id_ruta`)+1 FROM `rutas` as rutas2), '$origen', '$destino' ,'$salida','$llegada','$diasSemana','$medio','$operador')";
+    $sql=$conexion->query($query);
+    $query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$origen','$salida')";
+    $sql=$conexion->query($query);
+    $query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$destino','$llegada')";
+    $sql=$conexion->query($query);
+}else{
+    $idRuta=$row["id_ruta"];
+    $query="INSERT INTO `rutas`(`id`, `id_ruta`, `lugar_salida`, `lugar_llegada`, `hora_salida`, `hora_llegada`, `dias_semana`, `medio`, `operador`) VALUES (NULL, $idRuta, '$origen', '$destino' ,'$salida','$llegada','$diasSemana','$medio','$operador')";
+    $sql=$conexion->query($query);
+    $query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$origen','$salida')";
+    $sql=$conexion->query($query);
+    $query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$destino','$llegada')";
+    $sql=$conexion->query($query);
+}
+
 
 ?>
 

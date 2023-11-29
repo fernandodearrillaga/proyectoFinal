@@ -29,7 +29,7 @@ and open the template in the editor.
 <div class="d-flex  justify-content-center">
   <div class="card col-12 col-md-6 p-3 ">
 
-  <form action="addRuta2.php" method="post">
+  <form action="addParada2.php" method="post">
 
   <div class="mb-3">
     <label for="Parada" class="form-label">Parada</label>
@@ -43,6 +43,7 @@ and open the template in the editor.
     
     <?php
     $conexion=mysqli_connect("localhost", "root", "", "transporte");
+    $_SESSION["viaje"]=$_POST["viaje"];
         
     $sql=$conexion->query("SELECT DISTINCT `medio` FROM `rutas` ORDER BY `medio`");
     $medios=[];

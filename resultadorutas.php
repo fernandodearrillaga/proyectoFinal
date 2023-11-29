@@ -64,11 +64,19 @@ while ($row = mysqli_fetch_assoc($sql)) {
             if ($rows[$i]["viaje"]!=$viaje) {
                 echo "</table>";
 
+                if (isset($_SESSION["tipo"])) {
                 if ($_SESSION["tipo"]=="admin") {
                   ?>
-                  <a href="addParada.php" class="btn btn-warning">Añadir parada</a>
+                  
+                  <form action="addParada.php" method="post">
+                <input type = "hidden" name = "viaje" value = "<?php echo $viaje?>" />
+
+                    <button type="submit" class="btn btn-warning">Añadir parada</button>
+                  </form>
+                  
                   <?php
               }
+            }
                 echo "</div>";
                 echo "</div>";
                 echo "<br>";
@@ -96,14 +104,20 @@ while ($row = mysqli_fetch_assoc($sql)) {
           
           
         echo "</table>";
-        if ($_SESSION["tipo"]=="admin") {
-          ?>
-          <form>
-            
-          </form>
-          <a href="addParada.php" class="btn btn-warning">Añadir parada</a>
-          <?php
-      }
+        if (isset($_SESSION["tipo"])) {
+          if ($_SESSION["tipo"]=="admin") {
+            ?>
+                  
+                  <form action="addParada.php" method="post">
+                <input type = "hidden" name = "viaje" value = "<?php echo $viaje?>" />
+
+                    <button type="submit" class="btn btn-warning">Añadir parada</button>
+                  </form>
+                  
+                  <?php
+        }
+        }
+        
       echo "</div>";
       echo "</div>";
           ?>
@@ -141,7 +155,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
 
 
 <?php
-if (isset($_SESSION)) {
+if (isset($_SESSION["id"])) {
   $id=$_SESSION["id"];
   $query="INSERT INTO `historial`(`id`, `origen`, `destino`, `ruta`, `parada`, `fecha`, `id_usuario`) VALUES (NULL,NULL,NULL,$ruta,NULL,'$fecha', '$id');";
 

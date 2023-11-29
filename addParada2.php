@@ -4,41 +4,18 @@ session_start();
 
 <?php
 //var_dump($_POST);
-$origen=strtoupper($_POST["origen"]);
-$destino=strtoupper($_POST["destino"]);
-$medio=$_POST["medio"];
-$operador=$_POST["operador"];
-$salida=$_POST["salida"];
-$llegada=$_POST["llegada"];
-$diasSemana="";
-if (isset($_POST["lunes"])) {
-    $diasSemana=$diasSemana."0";
-}
-if (isset($_POST["martes"])) {
-    $diasSemana=$diasSemana."1";
-}
-if (isset($_POST["miercoles"])) {
-    $diasSemana=$diasSemana."2";
-}
-if (isset($_POST["jueves"])) {
-    $diasSemana=$diasSemana."3";
-}
-if (isset($_POST["viernes"])) {
-    $diasSemana=$diasSemana."4";
-}
-if (isset($_POST["sabado"])) {
-    $diasSemana=$diasSemana."5";
-}
-if (isset($_POST["domingo"])) {
-    $diasSemana=$diasSemana."6";
-}
+$viaje=$_SESSION["viaje"];
+$parada=strtoupper($_POST["parada"]);
+$hora=$_POST["hora"];
+
 
 $conexion=mysqli_connect("localhost", "root", "", "transporte");
 
-$query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL,'','$parada','$hora')";
+$query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL,'$viaje','$parada','$hora')";
+//echo $query;
 $sql=$conexion->query($query);
-$query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$destino','$llegada')";
-$sql=$conexion->query($query);
+//$query="INSERT INTO `paradas`(`id`, `id_ruta`, `parada`, `hora`) VALUES (NULL, (SELECT MAX(`id`) FROM `rutas`),'$destino','$llegada')";
+//$sql=$conexion->query($query);
 
 ?>
 
@@ -62,7 +39,7 @@ and open the template in the editor.
     <body>
     <div class="d-flex justify-content-center">
   <div class="card col-12 col-md-6 p-3 ">
-        <h1 class="p-3"> La ruta se ha añadido correctamente</h1>
+        <h1 class="p-3"> La parada se ha añadido correctamente</h1>
         <div class="p-3">
         <a href="rutas.php" class="btn btn-secondary w-50">Volver atrás</a>
         </div>

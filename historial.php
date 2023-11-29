@@ -24,6 +24,10 @@
         ?>
         
         <table class="table table-stripped">
+        <form action="borrarHistorial.php" method="post">
+            
+            <td><input type="submit" class="btn btn-danger" value="Borrar historial"></a></td>
+            </form>
         <?php
         for ($i=0; $i < count($rows); $i++) { 
             echo "<tr>";?>

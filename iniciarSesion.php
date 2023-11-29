@@ -5,6 +5,7 @@ $usuario= $_POST["usuario"];
 $pass=$_POST["password"];
 
 
+
 $conexion=mysqli_connect("localhost", "root", "", "transporte");
 $sql=$conexion->query("SELECT * FROM `usuarios` WHERE `nombre`='$usuario' and `contraseña`='$pass';");
 var_dump($sql);

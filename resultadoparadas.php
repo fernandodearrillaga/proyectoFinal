@@ -111,7 +111,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
 </div>
 <table class="table">
 <?php
-if (isset($_SESSION)) {
+if (isset($_SESSION["id"])) {
   $id=$_SESSION["id"];
   if($_POST["direccion"]=="origen"){
 
