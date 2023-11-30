@@ -84,7 +84,7 @@ $transbordo=false;
 if (count($rows)==0){
   //echo "No se ha encontrado ningún resultado";
   $transbordo=true;
-  $query3="SELECT ORIGEN.* , P1.*, P2.* , DESTINO.*, ORIGEN.parada as origen, ORIGEN.hora as salida, P1.parada as parada_tr, P1.hora as llegada_tr, P2.hora as salida_tr, DESTINO.parada as destino, DESTINO.hora as llegada, (SELECT operador from rutas WHERE id=ORIGEN.id_ruta) as operador1, (SELECT operador from rutas WHERE id=DESTINO.id_ruta) as operador2, (SELECT web from operadores WHERE operadores.nombre=operador1) as web1, (SELECT web from operadores WHERE operadores.nombre=operador2) as web2, (SELECT medio from rutas WHERE id=ORIGEN.id_ruta) as medio1, (SELECT medio from rutas WHERE id=DESTINO.id_ruta) as medio2 FROM `paradas` ORIGEN, `paradas` DESTINO, `paradas` P1, `paradas` P2 WHERE ORIGEN.hora<DESTINO.hora AND ORIGEN.hora<P1.hora AND ORIGEN.parada='$origen' AND DESTINO.parada='$destino' AND ORIGEN.id_ruta=P1.id_ruta AND P1.parada=P2.parada AND P2.id_ruta=DESTINO.id_ruta AND P1.hora<P2.hora;";
+  $query3="SELECT ORIGEN.* , P1.*, P2.* , DESTINO.*, ORIGEN.parada as origen, ORIGEN.hora as salida, P1.parada as parada_tr, P1.hora as llegada_tr, P2.hora as salida_tr, DESTINO.parada as destino, DESTINO.hora as llegada, (SELECT operador from rutas WHERE id=ORIGEN.id_ruta) as operador1, (SELECT operador from rutas WHERE id=DESTINO.id_ruta) as operador2, (SELECT web from operadores WHERE operadores.nombre=operador1) as web1, (SELECT web from operadores WHERE operadores.nombre=operador2) as web2, (SELECT medio from rutas WHERE id=ORIGEN.id_ruta) as medio1, (SELECT medio from rutas WHERE id=DESTINO.id_ruta) as medio2, (SELECT dias_semana from rutas WHERE id=ORIGEN.id_ruta) as dias_semana1, (SELECT dias_semana from rutas WHERE id=DESTINO.id_ruta) as dias_semana2 FROM `paradas` ORIGEN, `paradas` DESTINO, `paradas` P1, `paradas` P2, `rutas` R1, `rutas` R2 WHERE ORIGEN.hora<DESTINO.hora AND ORIGEN.hora<P1.hora AND ORIGEN.parada='$origen' AND DESTINO.parada='$destino' AND ORIGEN.id_ruta=P1.id_ruta AND P1.parada=P2.parada AND P2.id_ruta=DESTINO.id_ruta AND P1.hora<P2.hora AND ORIGEN.id_ruta=R1.id AND DESTINO.id_ruta=R2.id AND R1.dias_semana LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND R2.dias_semana LIKE CONCAT('%', WEEKDAY('$fecha'), '%') AND (r1.medio='$autobus' OR r1.medio='$tren') AND (r2.medio='$autobus' OR r2.medio='$tren')  ORDER BY llegada, salida desc;";
   $sql=$conexion->query($query3);
   while ($row = mysqli_fetch_assoc($sql)) {
     array_push($rows, $row);
@@ -160,12 +160,12 @@ if ($transbordo==false){
           echo "</table>";
           ?>
           <p>
-          <button class="btn btn-primary w-75" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <button class="btn btn-primary w-75" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<?php echo $i?>" aria-expanded="false" aria-controls="collapseExample<?php echo $i?>">
               Más Información
               </button>
             
           </p>
-          <div class="collapse" id="collapseExample">
+          <div class="collapse" id="collapseExample<?php echo $i?>">
             <div class="card card-body">
               <?php
               echo "<table class='table'>";
